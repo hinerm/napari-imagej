@@ -27,21 +27,21 @@ jobs:
         java-version: ['8', '21']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Set up Java ${{ matrix.java-version }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{matrix.java-version}}
           distribution: 'zulu'
 
       - name: Setup Qt libraries
-        uses: tlambert03/setup-qt-libs@v1
+        uses: tlambert03/setup-qt-libs@v1.8
 
       # strategy borrowed from vispy for installing opengl libs on windows
       - name: Install Windows OpenGL
@@ -72,8 +72,8 @@ jobs:
   ensure-clean-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.9
       # This step ensures that everything is installed
@@ -82,7 +82,7 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: Run Ruff
-        uses: astral-sh/ruff-action@v1
+        uses: astral-sh/ruff-action@v3
 
       - name: Validate pyproject.toml
         run: |
@@ -98,7 +98,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Cache conda
         uses: actions/cache@v4
         env:
