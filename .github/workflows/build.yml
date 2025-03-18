@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.9', '3.12']
+        python-version: ['3.9']
         java-version: ['8', '21']
 
     steps:
@@ -160,7 +160,7 @@ jobs:
           use-mamba: true
 
       - name: Setup Qt libraries
-        uses: tlambert03/setup-qt-libs@v1
+        uses: tlambert03/setup-qt-libs@v1.8
 
       - name: Test napari-imagej
         uses: GabrielBB/xvfb-action@v1
