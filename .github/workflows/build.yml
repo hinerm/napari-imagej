@@ -68,8 +68,11 @@ jobs:
           echo "Finding all LLVM shared libraries..."
           find / -name "libLLVM.so.*" 2>/dev/null
 
-          echo "Aborting workflow since this is a debug step."
-          exit 1
+          echo "Checking LVM usage in Python..."
+          ldd $(which python) | grep LLVM || echo "Python does not link to LLVM"
+
+          echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+          echo "PATH: $PATH"
 
       - name: Test napari-imagej
         uses: coactions/setup-xvfb@v1
