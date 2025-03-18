@@ -63,6 +63,14 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e '.[dev]'
 
+      - name: Find LLVM Library
+        run: |
+          echo "Finding all LLVM shared libraries..."
+          find / -name "libLLVM.so.*" 2>/dev/null
+
+          echo "Aborting workflow since this is a debug step."
+          exit 1
+
       - name: Test napari-imagej
         uses: coactions/setup-xvfb@v1
         with:
