@@ -22,9 +22,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
-        platform: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.9']
-        java-version: ['8']
+        platform: [ubuntu-latest, macos-latest]
+        python-version: ['3.9', '3.12']
+        java-version: ['8', '11', '21']
 
     steps:
       - uses: actions/checkout@v4
