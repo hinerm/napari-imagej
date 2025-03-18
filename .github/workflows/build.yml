@@ -146,6 +146,19 @@ jobs:
           run: |
             conda run -n napari-imagej-dev --no-capture-output python -m pytest -s -p no:faulthandler --color=yes --cov-report=xml --cov=.
 
+      - name: Print JVM Crash Log (if exists)
+        if: always()
+        run: |
+          echo "Checking for JVM crash log..."
+          log_file=$(find /home/runner/work/napari-imagej/napari-imagej -name "hs_err_pid*.log" | head -n 1)
+    
+          if [ -f "$log_file" ]; then
+            echo "Found JVM crash log at $log_file:"
+            cat "$log_file"
+          else
+            echo "No JVM crash log found."
+          fi
+
       # We could do this in its own action, but we'd have to setup the environment again.
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
