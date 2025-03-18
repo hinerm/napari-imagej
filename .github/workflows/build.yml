@@ -151,7 +151,7 @@ jobs:
         uses: tlambert03/setup-qt-libs@v1.8
 
       - name: Test napari-imagej
-        uses: GabrielBB/xvfb-action@v1.7
+        uses: coactions/setup-xvfb@v1.0.1
         with:
           run: |
             conda run -n napari-imagej-dev --no-capture-output python -m pytest -s -p no:faulthandler --color=yes --cov-report=xml --cov=.
