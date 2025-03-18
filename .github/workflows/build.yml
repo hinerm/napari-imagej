@@ -93,6 +93,19 @@ jobs:
           run:
             bash bin/test.sh
 
+      - name: Print JVM Crash Log (if exists)
+        if: always()
+        run: |
+          echo "Checking for JVM crash log..."
+          log_file=$(find /home/runner/work/napari-imagej/napari-imagej -name "hs_err_pid*.log" | head -n 1)
+    
+          if [ -f "$log_file" ]; then
+            echo "Found JVM crash log at $log_file:"
+            cat "$log_file"
+          else
+            echo "No JVM crash log found."
+          fi
+
   ensure-clean-code:
     runs-on: ubuntu-latest
     steps:
