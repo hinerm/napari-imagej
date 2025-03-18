@@ -75,18 +75,6 @@ jobs:
           echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
           echo "PATH: $PATH"
 
-      - name: Debug LLVM Library (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          Write-Host "Finding all LLVM DLLs..."
-          Get-ChildItem -Path C:\ -Recurse -Filter "LLVM*.dll" -ErrorAction SilentlyContinue
-
-          Write-Host "Checking LLVM usage in Python..."
-          python -c "import ctypes; print(ctypes.util.find_library('LLVM'))" || Write-Host "Python does not link to LLVM"
-
-          Write-Host "PATH: $env:PATH"
-
       - name: Test napari-imagej
         uses: coactions/setup-xvfb@v1
         with:
