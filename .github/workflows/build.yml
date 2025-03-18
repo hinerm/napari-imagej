@@ -124,16 +124,6 @@ jobs:
         shell: bash -l {0}
     steps:
       - uses: actions/checkout@v4
-      - name: Cache conda
-        uses: actions/cache@v4
-        env:
-          # Increase this value to reset cache if dev-environment.yml has not changed
-          CACHE_NUMBER: 0
-        with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
-            hashFiles('dev-environment.yml') }}
       - uses: conda-incubator/setup-miniconda@v2
         with:
           # Create env with dev packages
