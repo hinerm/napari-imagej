@@ -66,7 +66,7 @@ jobs:
       - name: Find LLVM Library
         run: |
           echo "Finding all LLVM shared libraries..."
-          find / -name "libLLVM.so.*" 2>/dev/null
+          find / -name "libLLVM.so.*" -readable 2>/dev/null || true
 
           echo "Checking LVM usage in Python..."
           ldd $(which python) | grep LLVM || echo "Python does not link to LLVM"
