@@ -64,6 +64,7 @@ jobs:
           python -m pip install -e '.[dev]'
 
       - name: Find LLVM Library
+        if: runner.os != 'Windows'
         run: |
           echo "Finding all LLVM shared libraries..."
           find / -name "libLLVM.so.*" -readable 2>/dev/null || true
@@ -73,6 +74,18 @@ jobs:
 
           echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
           echo "PATH: $PATH"
+
+      - name: Debug LLVM Library (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Write-Host "Finding all LLVM DLLs..."
+          Get-ChildItem -Path C:\ -Recurse -Filter "LLVM*.dll" -ErrorAction SilentlyContinue
+
+          Write-Host "Checking LLVM usage in Python..."
+          python -c "import ctypes; print(ctypes.util.find_library('LLVM'))" || Write-Host "Python does not link to LLVM"
+
+          Write-Host "PATH: $env:PATH"
 
       - name: Test napari-imagej
         uses: coactions/setup-xvfb@v1
