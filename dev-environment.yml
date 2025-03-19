@@ -25,7 +25,7 @@ dependencies:
   - jpype1 >= 1.5.2
   - labeling >= 0.1.12
   - magicgui >= 0.5.1
-  - napari >= 0.4.17
+  - napari=0.5.5
   - numpy
   - openjdk=21
   - pandas
